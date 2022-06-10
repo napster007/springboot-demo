@@ -1,0 +1,20 @@
+# Docker Build Stage
+FROM maven:3-jdk-8-alpine AS build
+
+
+# Build Stage
+WORKDIR E:/JenKins_Deployment/opt/app
+
+COPY ./ E:/JenKins_Deployment/opt/app
+RUN mvn clean install -DskipTests
+
+
+# Docker Build Stage
+FROM openjdk:8-jdk-alpine
+
+COPY --from=build E:/JenKins_Deployment/opt/app/target/*.jar app.jar
+#port to expose
+ENV PORT 8099
+EXPOSE $PORT
+
+ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","app.jar"]
