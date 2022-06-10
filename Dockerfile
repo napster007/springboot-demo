@@ -3,17 +3,17 @@ FROM maven:3-jdk-8-alpine AS build
 
 
 # Build Stage
-WORKDIR E:/JenKins_Deployment/opt/app
+WORKDIR /opt/app
 
-COPY ./ E:/JenKins_Deployment/opt/app
+COPY ./ /opt/app
 RUN mvn clean install -DskipTests
 
 
 # Docker Build Stage
 FROM openjdk:8-jdk-alpine
 
-COPY --from=build E:/JenKins_Deployment/opt/app/target/*.jar app.jar
-#port to expose
+COPY --from=build /opt/app/target/*.jar app.jar
+
 ENV PORT 8099
 EXPOSE $PORT
 
