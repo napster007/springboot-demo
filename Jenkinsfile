@@ -5,9 +5,9 @@ node {
 
     try{
             stage('Clone Repo'){
-                git url: 'https://gitlab.com/napster0071/springboot-demo-deploy.git'
-                credentialsId : 'gitlab-spring-deploy-demo'
-                branch : 'main'
+                git url: 'https://github.com/napster007/springboot-demo-deploy.git'
+                credentialsId : 'githubdeploy-user'
+                branch : 'masterr'
             }
 
             stage('Build Docker'){
